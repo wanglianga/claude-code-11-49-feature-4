@@ -102,10 +102,17 @@ public class BizService {
         return settlementRepo.save(settlement);
     }
 
-    /** 创建检验报告。 */
+    /** 创建检验报告（检验时间缺省为当前时间）。 */
     @Transactional
     public LabReport createLabReport(UUID snapshotId, String sourceSystem,
                                      String sourcePatientId, String testName) {
+        return createLabReport(snapshotId, sourceSystem, sourcePatientId, testName, null);
+    }
+
+    /** 创建检验报告：可指定检验执行时间（复查间隔分析口径）。 */
+    @Transactional
+    public LabReport createLabReport(UUID snapshotId, String sourceSystem,
+                                     String sourcePatientId, String testName, Instant testTime) {
         SnapshotMapping mapping = snapshotService.resolve(snapshotId, sourceSystem, sourcePatientId);
         LabReport report = new LabReport();
         report.snapshotId = snapshotId;
@@ -114,6 +121,7 @@ public class BizService {
         report.identityId = mapping.identityId;
         report.masterId = mapping.masterId;
         report.testName = testName;
+        report.testTime = testTime;
         return labReportRepo.save(report);
     }
 

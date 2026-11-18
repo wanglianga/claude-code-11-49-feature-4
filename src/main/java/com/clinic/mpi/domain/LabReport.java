@@ -44,6 +44,9 @@ public class LabReport {
     @Column(nullable = false, length = 64)
     public String testName;
 
+    /** 检验执行时间（复查间隔分析用）；null 时回退 createdAt */
+    public Instant testTime;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 16)
     public Status status = Status.PRELIMINARY;

@@ -66,11 +66,11 @@ public class BizController {
         return bizService.settlements();
     }
 
-    @Operation(summary = "创建检验报告")
+    @Operation(summary = "创建检验报告", description = "testTime 缺省为当前时间；复查间隔分析按 testTime 计算")
     @PostMapping("/lab-reports")
     public LabReport createLabReport(@Valid @RequestBody Dtos.CreateLabReportRequest req) {
         return bizService.createLabReport(req.snapshotId(), req.sourceSystem(),
-                req.sourcePatientId(), req.testName());
+                req.sourcePatientId(), req.testName(), req.testTime());
     }
 
     @Operation(summary = "签发检验报告", description = "FINAL 后归属不再自动调整")

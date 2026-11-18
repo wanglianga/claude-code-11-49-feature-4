@@ -41,8 +41,8 @@ public class Resolution {
     @Column(nullable = false)
     public long expectedGraphVersion;
 
-    /** 决议明细（JSON：涉及身份、源主体、目标主体等） */
-    @Column(length = 4000)
+    /** 决议明细（JSON：涉及身份、源主体、目标主体等；大规模分量合并条目较多，用 text 存储） */
+    @Column(columnDefinition = "text")
     public String detail;
 
     @Column(length = 500)

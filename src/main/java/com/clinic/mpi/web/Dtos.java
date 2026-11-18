@@ -74,10 +74,22 @@ public final class Dtos {
             @NotNull UUID snapshotId,
             @NotBlank String sourceSystem,
             @NotBlank String sourcePatientId,
-            @NotBlank String testName) {
+            @NotBlank String testName,
+            Instant testTime) {
     }
 
     public record AckImpactRequest(String note) {
+    }
+
+    public record CreateAmbiguityRunRequest(
+            @NotNull UUID snapshotId,
+            @NotNull Instant periodStart,
+            @NotNull Instant periodEnd,
+            Integer recheckWindowDays,
+            String route,
+            Integer maxComponentSuperNodes,
+            Long maxPartitionsPerComponent,
+            Long maxMillis) {
     }
 
     public record ResolveResponse(
